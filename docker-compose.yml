@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  backend:
+    build: backend
+    image: kupi_podari_daj_backend:latest
+    restart: unless-stopped
