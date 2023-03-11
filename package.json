@@ -1,0 +1,11 @@
+{
+  "name": "kupipodariday",
+  "version": "0.0.1",
+  "description": "Приложение для сбора средств на подарки друг другу",
+  "author": "Daria R",
+  "private": true,
+  "license": "UNLICENSED",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
