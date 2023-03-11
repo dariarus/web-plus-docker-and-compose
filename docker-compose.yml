@@ -8,7 +8,7 @@ services:
       context: backend
       dockerfile: Dockerfile
     # пробросить в контейнер env-переменные
-    env_file: backend/.env
+    env_file: .env.backend
     image: kupi_podari_daj_backend:latest
     restart: unless-stopped
 #    entrypoint: 'sleep infinity'
@@ -22,7 +22,7 @@ services:
     container_name: 'postgres'
     image: postgres:12.12-alpine
     restart: always
-    env_file: ./backend/.env.postgres
+    env_file: .env.postgres
 
   frontend:
     container_name: 'frontend'
