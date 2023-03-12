@@ -9,13 +9,17 @@ const {
 module.exports = {
   deploy: {
     production: {
+      key: '~/.ssh/id_rsa',
       user: DEPLOY_USER,
       host: DEPLOY_HOST,
       ref: DEPLOY_REF,
-      repo: 'https://github.com/dariarus/web-plus-docker-and-compose',
+      repo: 'https://github.com/dariarus/web-plus-docker-and-compose.git',
       path: DEPLOY_PATH,
-      ssh_options: 'StrictHostKeyChecking=no',
-      'pre-deploy-local': `scp ./.env* ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
+      ssh_options: [
+        "StrictHostKeyChecking=no",
+        "PasswordAuthentication=no"
+      ],
+      'pre-deploy-local': `scp ./.env* ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/source`,
       'post-deploy': 'sudo docker compose build && sudo docker compose up -d',
     },
   },
