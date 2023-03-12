@@ -19,8 +19,9 @@ module.exports = {
         "StrictHostKeyChecking=no",
         "PasswordAuthentication=no"
       ],
-      'pre-deploy-local': `scp ./.env* ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/source`,
-      'post-deploy': 'sudo docker compose build && sudo docker compose up -d',
+      'pre-deploy-local': `scp ./.env* ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/source 
+        && scp ./frontend/.env* ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/source/frontend`,
+      'post-deploy': 'sudo docker compose build && sudo docker compose down && sudo docker compose up -d',
     },
   },
 };

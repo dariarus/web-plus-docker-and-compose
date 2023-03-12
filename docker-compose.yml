@@ -13,16 +13,22 @@ services:
     restart: unless-stopped
 #    entrypoint: 'sleep infinity'
     ports:
-      - '3000:3000'
+      - '4000:3000'
     # контейнер с бэкендом стартует только после запуска контейнера с постгресом
     depends_on:
-      - postgres
+      - database
+    networks:
+      - backend
 
-  postgres:
-    container_name: 'postgres'
+  database:
+    container_name: 'database'
     image: postgres:12.12-alpine
     restart: always
     env_file: .env.postgres
+    networks:
+      - backend
+    volumes:
+      - pg_data:/var/lib/postgresql/data
 
   frontend:
     container_name: 'frontend'
@@ -30,4 +36,10 @@ services:
       context: frontend
       dockerfile: Dockerfile
     ports:
-      - '81:81'
+      - '8081:80'
+
+networks:
+  backend:
+
+volumes:
+  pg_data:
