@@ -1,7 +1,46 @@
+# версия yml-файла
 version: "3.7"
 
 services:
   backend:
-    build: backend
+    container_name: 'backend'
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    # пробросить в контейнер env-переменные
+    env_file: .env.backend
     image: kupi_podari_daj_backend:latest
     restart: unless-stopped
+#    entrypoint: 'sleep infinity'
+    ports:
+      - '4000:3000'
+    # контейнер с бэкендом стартует только после запуска контейнера с постгресом
+    depends_on:
+      - database
+    networks:
+      - backend
+
+  database:
+    container_name: 'database'
+    image: postgres:12.12-alpine
+    restart: unless-stopped
+    env_file: .env.postgres
+    networks:
+      - backend
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  frontend:
+    container_name: 'frontend'
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - '8081:80'
+
+networks:
+  backend:
+
+volumes:
+  pg_data:

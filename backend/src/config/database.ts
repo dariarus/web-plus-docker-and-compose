@@ -3,10 +3,12 @@ import { Wish } from '../wishes/entities/wish.entity';
 import { Wishlist } from '../wishlists/entities/wishlist.entity';
 import { Offer } from '../offers/entities/offer.entity';
 
+import { POSTGRES_HOST } from '../config';
+
 export default () => ({
   database: {
     type: 'postgres',
-    host: 'localhost',
+    host: POSTGRES_HOST,
     port: 5432,
     username: 'student',
     password: 'student',

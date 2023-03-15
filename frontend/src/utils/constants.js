@@ -1,4 +1,13 @@
-export const URL = "http://localhost:3000";
+// const dotenv = require('dotenv');
+//
+// dotenv.config();
+
+const {
+  REACT_APP_API_URL = 'http://localhost',
+  REACT_APP_API_PORT = 3000
+} = process.env
+
+export const URL = `${REACT_APP_API_URL}:${REACT_APP_API_PORT}`;
 
 export const MINIMUM_PASSWORD_LENGTH = 3;
 export const MINIMUM_USERNAME_LENGTH = 3;
